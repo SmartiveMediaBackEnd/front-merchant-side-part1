@@ -1,0 +1,531 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 222.2 84% 4.9%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 222.2 84% 4.9%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 222.2 84% 4.9%;
+
+		--primary: 222.2 47.4% 11.2%;
+		--primary-foreground: 210 40% 98%;
+
+		--secondary: 210 40% 96.1%;
+		--secondary-foreground: 222.2 47.4% 11.2%;
+
+		--muted: 210 40% 96.1%;
+		--muted-foreground: 215.4 16.3% 46.9%;
+
+		--accent: 210 40% 96.1%;
+		--accent-foreground: 222.2 47.4% 11.2%;
+
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 214.3 31.8% 91.4%;
+		--input: 214.3 31.8% 91.4%;
+		--ring: 222.2 84% 4.9%;
+
+		--radius: 0.5rem;
+		/* --font-family-en: 'Tajawal', sans-serif; */
+
+		--font-family-ar: 'Tajawal', sans-serif;
+		--font-family-en: 'Poppins', sans-serif;
+	}
+	
+	.dark {
+		--background: 222.2 84% 4.9%;
+		--foreground: 210 40% 98%;
+
+		--card: 222.2 84% 4.9%;
+		--card-foreground: 210 40% 98%;
+
+		--popover: 222.2 84% 4.9%;
+		--popover-foreground: 210 40% 98%;
+
+		--primary: 210 40% 98%;
+		--primary-foreground: 222.2 47.4% 11.2%;
+
+		--secondary: 217.2 32.6% 17.5%;
+		--secondary-foreground: 210 40% 98%;
+
+		--muted: 217.2 32.6% 17.5%;
+		--muted-foreground: 215 20.2% 65.1%;
+
+		--accent: 217.2 32.6% 17.5%;
+		--accent-foreground: 210 40% 98%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 217.2 32.6% 17.5%;
+		--input: 217.2 32.6% 17.5%;
+		--ring: 212.7 26.8% 83.9%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+/* //////////////////////////////////// */
+
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+}
+
+a,
+svg,
+input,
+button,
+textarea,
+select,
+option,
+optgroup {
+	font: inherit;
+	color: inherit;
+	line-height: inherit;
+	word-spacing: inherit;
+	letter-spacing: inherit;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+	max-width: 100%;
+}
+
+/* //////////////////////////////////// */
+
+#root {
+	margin: 0 auto;
+	padding: 0;
+	box-sizing: border-box;
+	/* font-family: 'Poppins', sans-serif; */
+	/* font-family: "Tajawal", sans-serif */
+	font-family: var(--font-family-en);
+}
+
+.css-giud8b-MuiTableCell-root {
+	border-bottom: 20px solid #f9fafc !important;
+	background-color: white !important;
+	margin-bottom: 50px !important;
+}
+/* Define fadeOut animation */
+@keyframes fadeOut {
+	from {
+	  opacity: 1;
+	}
+	to {
+	  opacity: 0;
+	}
+  }
+  
+  /* Define fadeIn animation */
+  @keyframes fadeIn {
+	from {
+	  opacity: 0;
+	}
+	to {
+	  opacity: 1;
+	}
+  }
+  
+  /* Apply animations to transition stages */
+  .fadeOut {
+	animation: fadeOut 0.5s forwards;
+  }
+  
+  .fadeIn {
+	animation: fadeIn 0.5s forwards;
+  }
+
+.css-14frp6t-MuiTableCell-root {
+	border-bottom: 20px solid #f9fafc !important;
+	background-color: white !important;
+	margin-bottom: 50px !important;
+}
+
+.css-1xdmxkw-MuiTableCell-root {
+	border-bottom: 20px solid #f9fafc !important;
+	background-color: white !important;
+	margin-bottom: 50px !important;
+}
+
+.css-u7l27r-MuiTableCell-root {
+	border-bottom: 20px solid #f9fafc !important;
+	background-color: white !important;
+	margin-bottom: 50px !important;
+}
+
+.css-1ex1afd-MuiTableCell-root {
+	border-bottom: 20px solid #f9fafc !important;
+	background-color: white !important;
+	margin-bottom: 50px !important;
+}
+.react-tel-input .special-label {
+	background-color: white !important;
+	display: none !important;
+}
+
+@layer components {
+	.roundedParentIcon {
+		@apply rounded-lg border border-light-2 size-[42px] grid place-content-center overflow-hidden;
+	}
+	.custom_container {
+		@apply xl:max-w-[145rem] xl:px-5  container mx-auto;
+	}
+	.responsive_pages {
+		@apply custom_container flex-col-global;
+	}
+	.cardDetails-sharedClass {
+		@apply border rounded-[.6rem] bg-white border-constrained;
+	}
+	.customer-border {
+		@apply  bg-white rounded-[.6rem] py-[.7rem] border border-constrained flex flex-col;
+	}
+	.splide__pagination__page {
+		background: transparent !important;
+	}
+	.emailGrid {
+		@apply grid grid-cols-1 gap-4 lg:grid-cols-6 lg:items-center;
+	}
+	.flex-row-global {
+		@apply flex flex-row items-center;
+	}
+
+	.flex-row-global-items-start {
+		@apply flex flex-row items-start;
+	}
+	.global_error {
+		@apply text-sm font-medium text-destructive;
+	}
+	.topTable {
+		@apply md:flex-row-global flex-col-global  gap-2 items-start justify-between;
+	}
+
+	.custom-grid-parent {
+
+		@apply grid grid-cols-3 col-span-1 gap-3;
+	}
+	.grid-left {
+		@apply col-span-3 lg:col-span-2;
+	}
+	.grid-right {
+		@apply col-span-3 lg:col-span-1;
+	}
+	.custom-grid-half {
+		@apply grid grid-cols-1 lg:grid-cols-2 gap-3;
+	}
+	.grid-left-half {
+		@apply lg:col-span-1 col-span-2;
+	}
+	.grid-right-half {
+		@apply lg:col-span-1 col-span-2;
+	}
+
+	.box-photo {
+		@apply size-8 border border-constrained rounded-md overflow-hidden;
+	}
+	.flex-col-global {
+		@apply flex flex-col gap-[1rem];
+	}
+	.flex-end {
+		@apply flex flex-col justify-between items-end;
+	}
+	.flex-btn-end {
+		@apply flex gap-4 justify-end w-full;
+	}
+	.Sticky_header {
+		@apply sticky top-[70px] z-10;
+	}
+
+	.iconClass {
+		@apply text-[1.2rem] text-subtitle;
+	}
+	.global-install {
+		@apply flex flex-col lg:justify-between gap-4 min-h-[100px];
+	}
+	.global-install-p {
+		@apply text-title text-sm w-full lg:w-[60%];
+	}
+	.global-install-btn {
+		@apply lg:flex lg:justify-end;
+	}
+	.bran-sec-btn {
+		@apply bg-secondary px-2 py-1 rounded text-white text-sm capitalize hover:bg-sec-pressed;
+	}
+	/*py-2.5*/
+	.btn {
+		@apply px-4 p-2  rounded text-sm text-center capitalize flex items-center justify-center gap-1.5 focus:ring-1;
+	}
+
+	.btn-pri {
+		@apply btn bg-primary  text-white font-semibold  hover:bg-pri-hover focus:bg-pri-pressed active:bg-pri-pressed disabled:bg-borders-lines disabled:text-inactive focus:ring-pri-light;
+	}
+
+	.btn-sec {
+		@apply btn text-pri-dark font-normal border border-pri-dark hover:bg-light-1 active:bg-light-2 focus:ring-pri-light disabled:bg-inactive disabled:text-hint disabled:border-inactive;
+	}
+
+	.btn-ter {
+		@apply btn bg-transparent hover:bg-light-1 font-semibold text-title  active:bg-light-2 focus:border-2 focus:border-pri-light disabled:text-hint;
+	}
+
+	.btn-lin {
+		@apply border-2 border-transparent bg-transparent px-4 py-2.5 rounded hover:bg-light-3 font-normal text-primary text-sm capitalize active:bg-pri-light focus:border-2 focus:border-pri-light;
+	}
+
+	.spinner-btn {
+		@apply w-[18px] h-[18px] border-2 border-white border-t-transparent rounded-full animate-spin;
+	}
+	.bran-sec-btn {
+		@apply bg-secondary px-2 py-1 rounded  text-white text-sm capitalize hover:bg-sec-pressed;
+	}
+
+	.btn-delete {
+		@apply bg-error text-sm font-semibold px-4 py-2 rounded text-white;
+	}
+
+	.btn-rounded {
+		@apply bg-white rounded-[22px] py-[6px] px-[12px] border border-constrained text-sm text-subtitle focus:text-white focus:bg-secondary;
+	}
+
+	.spinner {
+		@apply w-[5rem] h-[5rem] border-4 border-primary border-t-transparent rounded-full animate-spin;
+	}
+
+	.card {
+		@apply border-2 border-light-2 rounded-lg p-5;
+	}
+
+	.title {
+		@apply font-semibold sm:text-[1rem] text-[.9rem] text-title;
+	}
+
+	.subtitle {
+		@apply font-normal text-base text-subtitle;
+	}
+
+	.paragraph {
+		@apply font-normal text-sm text-title;
+	}
+
+	.subheading {
+		@apply font-normal text-sm text-subtitle;
+	}
+
+	.active {
+		@apply bg-pri-light;
+	}
+
+	.border-gradient {
+		border-image: linear-gradient(313.9deg, #0d53fc -2.74%, #55c397 140.56%) 1;
+		border-radius: 0.375rem;
+	}
+
+	.page-container {
+		@apply w-full 2xl:w-11/12 mx-auto;
+	}
+	.global-cards {
+		@apply bg-white w-full border border-borders-lines rounded-[.75rem] p-[1.125rem] flex flex-col gap-4;
+	}
+	.flexResponsive {
+		@apply flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center;
+	}
+	
+	
+}
+
+/* remove all default Webkit search field styling */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration {
+	-webkit-appearance: none;
+}
+
+/* double-range-slider */
+.double-range-slider-container {
+	margin: 5px;
+}
+
+.double-range-slider-rail {
+	background-color: #d1d1d1;
+}
+
+.double-range-slider-text-holder {
+	color: #000;
+}
+
+.double-range-slider-track {
+	background-color: #498df3;
+}
+
+.double-range-slider-ball {
+	background-color: #498df3;
+	outline: #f3eeee 5px solid;
+}
+
+.double-range-slider-tooltip {
+	background-color: #fff;
+	border: #f3eeee 2px solid;
+}
+
+.double-range-slider-over::after {
+	border-color: #f3eeee transparent transparent transparent;
+}
+
+/* double-range-slider */
+
+/* input-range__slider */
+.input-range__slider {
+	background: #498df3;
+	border: 1px solid #498df3;
+}
+
+.input-range__track--active {
+	background: #498df3;
+}
+
+/* input-range__slider */
+
+.splide__arrows {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.splide__arrow {
+	position: relative;
+}
+
+button.splide__arrow--next,
+button.splide__arrow--prev {
+	background-color: #ddd !important;
+	border-radius: 5px;
+	margin: 0;
+	padding: 0;
+}
+
+button.splide__arrow--next svg,
+button.splide__arrow--prev svg {
+	width: 10px;
+}
+
+button.splide__arrow--prev {
+	margin-right: 40px;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+	border-radius: 50px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 100px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+@media print {
+	body * {
+		visibility: hidden;
+	}
+
+	.print-only,
+	.print-only * {
+		visibility: visible;
+	}
+
+	.print-only {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+}
+
+/* Style for the first step */
+.my-first-step {
+	background-color: #ffeb3b; /* Yellow background */
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 1.2em;
+}
+
+/* Style for the second step */
+.my-second-step {
+	background-color: #8bc34a; /* Light green background */
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 1.2em;
+}
+
+/* Style for the third step */
+.my-third-step {
+	background-color: #03a9f4; /* Light blue background */
+	color: white; /* White text color */
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 1.2em;
+	border: none;
+	cursor: pointer;
+}
+
+/* =============================== */
+/* React Slick Slider */
+
+.slick-prev,
+.slick-next {
+	display: none !important;
+}

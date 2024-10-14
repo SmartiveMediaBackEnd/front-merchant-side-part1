@@ -1,0 +1,232 @@
+{
+	"latestOrders": [
+		{
+			"id": 1,
+			"imageUrl": "images/profile.png",
+			"firstName": "walied",
+			"lastName": "sayed",
+			"orderStatus": "Awaiting Payment",
+			"orderNumber": "#8965742",
+			"price": 50,
+			"currency": "SAR",
+			"date": "5/6/2021"
+		},
+		{
+			"id": 2,
+			"firstName": "Ahmed",
+			"lastName": "Rady",
+			"orderStatus": "Canceled",
+			"orderNumber": "#8965742",
+			"price": 50,
+			"currency": "SAR",
+			"date": "5/6/2021"
+		},
+		{
+			"id": 3,
+			"imageUrl": "images/profile.png",
+			"firstName": "Samy",
+			"lastName": "Eslam",
+			"orderStatus": "Paid",
+			"orderNumber": "#8965742",
+			"price": 50,
+			"currency": "SAR",
+			"date": "5/6/2021"
+		},
+		{
+			"id": 4,
+			"firstName": "Magdy",
+			"lastName": "Salem",
+			"orderStatus": "Paid",
+			"orderNumber": "#8965742",
+			"price": 50,
+			"currency": "SAR",
+			"date": "5/6/2021"
+		},
+		{
+			"id": 5,
+			"imageUrl": "images/profile.png",
+			"firstName": "walied",
+			"lastName": "sayed",
+			"orderStatus": "Canceled",
+			"orderNumber": "#8965742",
+			"price": 50,
+			"currency": "SAR",
+			"date": "5/6/2021"
+		}
+	],
+	"reports": [
+		{ "label": "Visitors", "count": 0 },
+		{ "label": "Product views", "count": 0 },
+		{ "label": "Orders received", "count": 0 },
+		{ "label": "Revenue", "count": 0 },
+		{ "label": "Visitors with product views", "count": 0, "ratio": 4.75, "positive": false },
+		{ "label": "Added to cart", "count": 0, "ratio": 3.25, "positive": true },
+		{ "label": "Started checkouts", "count": 0, "ratio": 3.7, "positive": false },
+		{ "label": "Placed orders", "count": 0, "ratio": 1.7, "positive": true }
+	],
+	"topSellingProducts": [
+		{
+			"name": "GoPro Hero 9",
+			"imageUrl": "images/Vector.svg",
+			"category": "Electronics",
+			"quantity": 25,
+			"price": 4500.0
+		},
+		{
+			"name": "DJI Mavic Pro 2",
+			"imageUrl": "images/Vector.svg",
+			"category": "Blankets",
+			"quantity": 50,
+			"price": 10000.0
+		},
+		{
+			"name": "Samsung Galaxy S21 Ultra",
+			"imageUrl": "images/Vector.svg",
+			"category": "Smartphones",
+			"quantity": 20,
+			"price": 7000.0
+		},
+		{
+			"name": "Sony PlayStation 5",
+			"imageUrl": "images/Vector.svg",
+			"category": "Gaming",
+			"quantity": 10,
+			"price": 3000.0
+		},
+		{
+			"name": "Apple MacBook Pro",
+			"imageUrl": "images/Vector.svg",
+			"category": "Laptops",
+			"quantity": 15,
+			"price": 12000.0
+		}
+	],
+	"topSearchProducts": [
+		{
+			"name": "DJI Mavic Pro 2",
+			"imageUrl": "images/Vector.svg",
+			"category": "Blankets",
+			"quantity": 50,
+			"price": 10000.0
+		},
+		{
+			"name": "GoPro Hero 9",
+			"imageUrl": "images/Vector.svg",
+			"category": "Electronics",
+			"quantity": 25,
+			"price": 4500.0
+		},
+		{
+			"name": "Sony PlayStation 5",
+			"imageUrl": "images/Vector.svg",
+			"category": "Gaming",
+			"quantity": 10,
+			"price": 3000.0
+		},
+		{
+			"name": "Apple MacBook Pro",
+			"imageUrl": "images/macbook-pro.jpg",
+			"category": "Laptops",
+			"quantity": 15,
+			"price": 12000.0
+		},
+		{
+			"name": "Samsung Galaxy S21 Ultra",
+			"imageUrl": "images/Vector.svg",
+			"category": "Smartphones",
+			"quantity": 20,
+			"price": 7000.0
+		}
+	],
+	"topReviewsProducts": [
+		{
+			"name": "Samsung Galaxy S21 Ultra",
+			"imageUrl": "images/Vector.svg",
+			"category": "Smartphones",
+			"quantity": 20,
+			"price": 7000.0
+		},
+		{
+			"name": "DJI Mavic Pro 2",
+			"imageUrl": "images/Vector.svg",
+			"category": "Blankets",
+			"quantity": 50,
+			"price": 10000.0
+		},
+		{
+			"name": "GoPro Hero 9",
+			"imageUrl": "images/Vector.svg",
+			"category": "Electronics",
+			"quantity": 25,
+			"price": 4500.0
+		},
+		{
+			"name": "Sony PlayStation 5",
+			"imageUrl": "images/Vector.svg",
+			"category": "Gaming",
+			"quantity": 10,
+			"price": 3000.0
+		},
+		{
+			"name": "Apple MacBook Pro",
+			"imageUrl": "images/Vector.svg",
+			"category": "Laptops",
+			"quantity": 15,
+			"price": 12000.0
+		}
+	],
+	"slides": [
+		{
+			"videoUrl": "https://www.youtube.com/embed/pUb9EW770d0?si=JMDd8iQlC39CoyXa",
+			"title": "How to finish steps",
+			"description": "Description for Card"
+		},
+		{
+			"videoUrl": "https://www.youtube.com/embed/pUb9EW770d0?si=JMDd8iQlC39CoyXa",
+			"title": "How to register domain",
+			"description": "Description for Card"
+		},
+		{
+			"videoUrl": "https://www.youtube.com/embed/pUb9EW770d0?si=JMDd8iQlC39CoyXa",
+			"title": "SEO in details",
+			"description": "Description for Card"
+		},
+		{
+			"videoUrl": "https://www.youtube.com/embed/pUb9EW770d0?si=JMDd8iQlC39CoyXa",
+			"title": "How to finish steps",
+			"description": "Description for Card"
+		},
+		{
+			"videoUrl": "https://www.youtube.com/embed/pUb9EW770d0?si=JMDd8iQlC39CoyXa",
+			"title": "How to finish steps",
+			"description": "Description for Card"
+		}
+	],
+
+	"containSelling": [
+		{
+			"id": 1,
+			"img": "/cloud.svg",
+			"title": "DJI Mavic Pro 2",
+			"subtitle": "Blankets",
+			"qty": 50,
+			"price": 10000
+		},
+		{
+			"id": 2,
+			"img": "/cloud.svg",
+			"title": "DJI Mavic Pro 2",
+			"subtitle": "Blankets",
+			"qty": 50,
+			"price": 10000
+		},
+		{
+			"id": 3,
+			"img": "/cloud.svg",
+			"title": "DJI Mavic Pro 2",
+			"subtitle": "Blankets",
+			"qty": 50,
+			"price": 10000
+		}
+	]
+}
