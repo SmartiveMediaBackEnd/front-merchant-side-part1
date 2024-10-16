@@ -14,10 +14,9 @@ type Props = {
 
 const SelectValues = ({ index, attributes, code, values, formStore }: Props) => {
 	const { t } = useTranslation();
-	const [value, setValue] = useState<string[] | undefined>(values);
 	const [inputValue, setInputValue] = React.useState('');
 
-	const { update } = useFieldArray({
+	const { update, remove } = useFieldArray({
 		control: formStore.control,
 		name: 'chosen_variants_options',
 	});
@@ -42,9 +41,10 @@ const SelectValues = ({ index, attributes, code, values, formStore }: Props) => 
 				multiple
 				value={chosen_variants_options[index]?.attributeValues || []}
 				onChange={(event: any, newValue: string | null) => {
-					setValue(newValue);
-					console.log('newValue ', newValue);
-					update(index, { code: code, attributeValues: newValue });
+					if (newValue) {
+						update(index, { code: code, attributeValues: newValue });
+						if (newValue?.length < 1) remove(index);
+					}
 				}}
 				inputValue={inputValue}
 				onInputChange={(event, newInputValue) => {

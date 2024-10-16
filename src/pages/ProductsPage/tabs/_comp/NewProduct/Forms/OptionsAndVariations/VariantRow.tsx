@@ -8,7 +8,7 @@ type Props = {
 	formStore: any;
 };
 
-const VariantRow = ({ index, variation, formStore }: Props) => {
+const VariantRow = ({ index, variation, formStore, remove }: Props) => {
 	const [openDialog, setOpenDialog] = useState<boolean>(false);
 	return (
 		<li className='cardDetails-sharedClass flex justify-between items-center py-3 px-5'>
@@ -21,19 +21,16 @@ const VariantRow = ({ index, variation, formStore }: Props) => {
 				{variation.code}
 			</p>
 
-			<button
-				type='button'
-				// onClick={() => removeVariation(index)}
-			>
+			<button type='button' onClick={() => remove(index)}>
 				<RemoveIcon className='fill-error' />
 			</button>
 
-			{/* <AdvancedFields
+			<AdvancedFields
 				index={index}
 				formStore={formStore}
 				openDialog={openDialog}
 				handleClose={() => setOpenDialog(false)}
-			/> */}
+			/>
 		</li>
 	);
 };
