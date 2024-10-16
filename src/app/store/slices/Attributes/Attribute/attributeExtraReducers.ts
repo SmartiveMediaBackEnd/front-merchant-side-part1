@@ -1,5 +1,11 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { getAttributes, getAttributeShow, postAttribute, postOption, putAttribute } from './attributeAsyncThunks';
+import {
+	getAttributes,
+	getAttributeShow,
+	postAttribute,
+	postOption,
+	putAttribute,
+} from './attributeAsyncThunks';
 import { attributesSliceModel } from 'src/app/models/attributeSliceModel';
 
 export const attributesReducer = (builder: ActionReducerMapBuilder<attributesSliceModel>) => {
@@ -15,7 +21,6 @@ export const attributesReducer = (builder: ActionReducerMapBuilder<attributesSli
 		})
 		.addCase(getAttributes.rejected, (state, action) => {
 			state.isLoading = false;
-
 		})
 
 		// // get attribute show
@@ -29,7 +34,6 @@ export const attributesReducer = (builder: ActionReducerMapBuilder<attributesSli
 		})
 		.addCase(getAttributeShow.rejected, (state, action) => {
 			state.isLoading = false;
-
 		})
 
 		// create attribute
@@ -49,11 +53,9 @@ export const attributesReducer = (builder: ActionReducerMapBuilder<attributesSli
 		})
 		.addCase(putAttribute.fulfilled, (state, { payload }) => {
 			state.isLoadingAddOrUpdate = false;
-
 		})
 		.addCase(putAttribute.rejected, (state, action) => {
 			state.isLoadingAddOrUpdate = false;
-
 		})
 
 		// store option
@@ -65,5 +67,5 @@ export const attributesReducer = (builder: ActionReducerMapBuilder<attributesSli
 		})
 		.addCase(postOption.rejected, (state, action) => {
 			state.isLoadingAddOrUpdate = false;
-		})
+		});
 };

@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { attributesReducer } from './attributeExtraReducers';
 import { attributesSliceModel } from 'src/app/models/attributeSliceModel';
 
-
 const initialState: attributesSliceModel = {
 	attributesList: [],
 	attributeShow: null,

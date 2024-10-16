@@ -30,7 +30,6 @@ import { AddProductSchemaSchemaValues } from './utils';
 
 import QuickActionForm from '../_comp/QuickActionForm';
 
-
 const productsSections = [
 	{
 		Elem: ProductFormMediaSection,
@@ -90,14 +89,12 @@ const Configurable = () => {
 	const { pathname } = useLocation();
 	const { isLoadingAddOrUpdate, product } = useAppSelector((state) => state.allProducts);
 
-
 	const context = useFormStore();
 
 	if (!context) {
-		throw new Error("Error: FormStoreContext");
+		throw new Error('Error: FormStoreContext');
 	}
 	const { formStore, onSubmit } = context;
-
 
 	useEffect(() => {
 		dispatch(getInventoryTable());
@@ -109,19 +106,18 @@ const Configurable = () => {
 		setTitle(lastSegment);
 	}, [pathname]);
 
-
-
 	return (
 		<Form {...formStore}>
 			<form onSubmit={onSubmit}>
 				<header className='flex flex-col gap-3 bg-white sticky top-20 left-0 capitalize pt-4 pb-2 text-lg font-medium px-4 z-10 -translate-y-4'>
 					<SubHeader
-						title={title !== 'configurable' && title !== 'simple' ? `Add ${title}` : 'Add Configurable Product'}
+						title={
+							title !== 'configurable' && title !== 'simple'
+								? `Add ${title}`
+								: 'Add Configurable Product'
+						}
 					>
-						<SubHeaderDefaultBtns
-							isLoading={isLoadingAddOrUpdate}
-							onSubmit={onSubmit}
-						/>
+						<SubHeaderDefaultBtns isLoading={isLoadingAddOrUpdate} onSubmit={onSubmit} />
 					</SubHeader>
 					{!xs && (
 						<ScrollArea className='w-full pb-2'>
@@ -152,28 +148,19 @@ const Configurable = () => {
 				</header>
 
 				<section className='custom-grid-parent gap-5 py-4  custom_container'>
-
 					<div className='flex-col-global grid-left gap-4'>
 						{productsSections.map(({ Elem, id }) => {
-							return (
-								<Elem key={id} id={id} formStore={formStore} />
-							);
+							return <Elem key={id} id={id} formStore={formStore} />;
 						})}
-
 					</div>
 
 					<div className='grid-right'>
-
 						<QuickActionForm formStore={formStore} />
 					</div>
 				</section>
-
 			</form>
-
-		</Form >
-	)
-}
+		</Form>
+	);
+};
 
 export default Configurable;
-
-

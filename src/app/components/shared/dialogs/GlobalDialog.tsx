@@ -51,29 +51,29 @@ export default function GlobalDialog({
 }
 
 // const ParentComponent: React.FC = () => {
-	// const [openDialog, setOpenDialog] = useState<boolean>(false);
+// const [openDialog, setOpenDialog] = useState<boolean>(false);
 
-	// const handleClose = (status: boolean) => {
-	//   setOpenDialog(status);
-	// };
+// const handleClose = (status: boolean) => {
+//   setOpenDialog(status);
+// };
 
-	// const dialogStyle = {
-	//   width: { lg: '600px', md: '400px', xs: '300px' },
-	//   height: { md: '500px', xs: '300px' },
-	// };
+// const dialogStyle = {
+//   width: { lg: '600px', md: '400px', xs: '300px' },
+//   height: { md: '500px', xs: '300px' },
+// };
 
 // 	return (
 // 	  <div>
 // 		<Button variant="contained" color="primary" onClick={() => setOpenDialog(true)}>
 // 		  Open Dialog
 // 		</Button>
-		// <GlobalDialog openDialog={openDialog} handleClose={handleClose} style={dialogStyle}>
-		//   <h2 id="modal-modal-title">Title</h2>
-		//   <p id="modal-modal-description">
-		// 	This is the content of the dialog. You can put any React component here.
-		//   </p>
-		//   <Button onClick={() => handleClose(false)}>Close</Button>
-		// </GlobalDialog>
+// <GlobalDialog openDialog={openDialog} handleClose={handleClose} style={dialogStyle}>
+//   <h2 id="modal-modal-title">Title</h2>
+//   <p id="modal-modal-description">
+// 	This is the content of the dialog. You can put any React component here.
+//   </p>
+//   <Button onClick={() => handleClose(false)}>Close</Button>
+// </GlobalDialog>
 // 	  </div>
 // 	);
 //   };

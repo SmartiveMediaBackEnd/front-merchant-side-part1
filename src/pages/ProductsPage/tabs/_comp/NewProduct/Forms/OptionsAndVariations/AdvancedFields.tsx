@@ -1,4 +1,3 @@
-
 // import { useEffect, useState } from 'react';
 // import { useTranslation } from 'react-i18next';
 // import { useAppDispatch } from 'src/app/store';
@@ -119,7 +118,6 @@
 //         setTotalQuantity(total);
 //         formStore.setValue(`variants.${index}.quantity`, total);
 //     }, [quantityData]);
-
 
 //     useEffect(() => {
 //         const newSkuValue = `${idVar}_${skuValue}`;
@@ -287,7 +285,6 @@
 //                 })}
 //             </div>
 
-
 //             <div className='custom-grid-parent'>
 //                 <div className='grid-left'>
 //                     <div className='flex-row-global gap-4'>
@@ -304,7 +301,6 @@
 //                         <p>{t('visible individually')}</p>
 //                     </div>
 //                 </div>
-
 
 //                 <div className='grid-right'>
 //                     <div className='flex-row-global gap-4'>
@@ -351,7 +347,6 @@
 // import { StarIcon } from 'src/app/utils/icons';
 // import { getProduct } from 'src/app/store/slices/productsPage/allProducts/allProductsAsyncThunks';
 // import { useSearchParams } from 'react-router-dom';
-
 
 // export type InventoryItem = {
 //     id: string;
@@ -421,9 +416,6 @@
 //         }
 //     }, [idUrl, variantIdToDisplay, dispatch]);
 
-
-
-
 //     const handleQuantityChange = (i: number, value: string | number, idInv: number) => {
 //         const quantity = Number(value) || 0;
 
@@ -467,7 +459,6 @@
 //         setTotalQuantity(total);
 //         formStore.setValue(`variants.${index}.quantity`, total);
 //     }, [quantityData]);
-
 
 //     useEffect(() => {
 //         const newSkuValue = `${idVar}_${skuValue}`;
@@ -635,7 +626,6 @@
 //                 })}
 //             </div>
 
-
 //             <div className='custom-grid-parent'>
 //                 <div className='grid-left'>
 //                     <div className='flex-row-global gap-4'>
@@ -652,7 +642,6 @@
 //                         <p>{t('visible individually')}</p>
 //                     </div>
 //                 </div>
-
 
 //                 <div className='grid-right'>
 //                     <div className='flex-row-global gap-4'>
@@ -683,7 +672,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from 'src/app/store';
@@ -701,287 +689,275 @@ import { StarIcon } from 'src/app/utils/icons';
 import { getProduct } from 'src/app/store/slices/productsPage/allProducts/allProductsAsyncThunks';
 import { useSearchParams } from 'react-router-dom';
 
-
 export type InventoryItem = {
-    id: string;
-    inventory_source_id: string;
-    product_id: string;
-    qty?: number;
-    quantity?: number;
-    inventory_sources?: any;
+	id: string;
+	inventory_source_id: string;
+	product_id: string;
+	qty?: number;
+	quantity?: number;
+	inventory_sources?: any;
 };
 
-const AdvancedFields = ({ index, formStore, openDialog, handleClose, name, idVar, variation, id, variantIdToDisplay, onSave }: { index: number; formStore: UseFormReturn<AddProductSchemaSchemaValues>; openDialog: boolean; handleClose: () => void; name: string; idVar: string; onSave: () => void; }) => {
-    const [totalQuantity, setTotalQuantity] = useState<number>(0);
-    const [idInventory, setIdInventory] = useState<number[]>([]);
-    const [quantityData, setQuantityData] = useState<InventoryItem[]>([]);
-    const { inventory } = useAppSelector((state) => state.inventory);
-    // const { product } = useAppSelector((state) => state.allProducts);
-    const { t } = useTranslation();
-    const dispatch = useAppDispatch();
-    const skuValue = formStore.getValues('sku') || '';
-    const Sku = idVar + '_' + skuValue;
-    const ids = typeof variation?.id === 'string'
-        ? variation.id.split('/').map((id: any) => id.trim())
-        : [variation?.id?.toString()];
-    const colorId = ids[0];
-    const sizeId = ids[1];
-    const [searchParams] = useSearchParams();
-    const idUrl = searchParams.get('id');
+const AdvancedFields = ({
+	index,
+	formStore,
+	openDialog,
+	handleClose,
+}: {
+	index: number;
+	openDialog: boolean;
+	handleClose: () => void;
+	formStore: any;
+}) => {
+	const [totalQuantity, setTotalQuantity] = useState<number>(0);
+	const [idInventory, setIdInventory] = useState<number[]>([]);
+	const [quantityData, setQuantityData] = useState<InventoryItem[]>([]);
+	const { inventory } = useAppSelector((state) => state.inventory);
+	// const { product } = useAppSelector((state) => state.allProducts);
+	const { t } = useTranslation();
+	const dispatch = useAppDispatch();
+	const skuValue = formStore.getValues('sku') || '';
+	const Sku = idVar + '_' + skuValue;
+	const ids =
+		typeof variation?.id === 'string'
+			? variation.id.split('/').map((id: any) => id.trim())
+			: [variation?.id?.toString()];
+	const colorId = ids[0];
+	const sizeId = ids[1];
 
+	//////////////////////////////////////////////
 
-    //////////////////////////////////////////////
+	// const formStore = useForm({ defaultValues });
 
-    const defaultValues = {
-        variants: [
-            {
-                sku: variation?.sku || '',
-                price: variation?.price || 0,
-                discount: variation?.discount || 0,
-                color: variation?.color || '',
-                size: variation?.size || '',
-            },
-        ],
-    };
+	// useEffect(() => {
+	//     if (variation) {
+	//         formStore.setValue(`variants.${index}.sku`, variation.sku || '');
+	//         formStore.setValue(`variants.${index}.price`, variation.price || 0);
+	//         formStore.setValue(`variants.${index}.discount`, variation.discount || 0);
+	//         formStore.setValue(`variants.${index}.color`, variation.color || '');
+	//         formStore.setValue(`variants.${index}.size`, variation.size || '');
+	//     }
+	// }, [variation, formStore, index]);
 
-    // const formStore = useForm({ defaultValues });
+	const handleSave = () => {
+		onSave();
+		handleClose();
+	};
 
-    // useEffect(() => {
-    //     if (variation) {
-    //         formStore.setValue(`variants.${index}.sku`, variation.sku || '');
-    //         formStore.setValue(`variants.${index}.price`, variation.price || 0);
-    //         formStore.setValue(`variants.${index}.discount`, variation.discount || 0);
-    //         formStore.setValue(`variants.${index}.color`, variation.color || '');
-    //         formStore.setValue(`variants.${index}.size`, variation.size || '');
-    //     }
-    // }, [variation, formStore, index]);
+	const handleQuantityChange = (i: number, value: string | number, idInv: number) => {
+		const quantity = Number(value) || 0;
+		setQuantityData((prev) => {
+			const updatedData = [...prev];
+			updatedData[i] = { ...updatedData[i], inventory_source_id: idInv.toString(), quantity };
+			return updatedData;
+		});
+	};
 
+	// console.log('quantityData:', quantityData);
+	useEffect(() => {
+		if (idInventory.length > 0) {
+			idInventory.forEach((idInv, i) => {
+				console.log(`Setting ID for variant ${index}, inventory ${i}:`, idInv);
+				formStore.setValue(`variants.${index}.inventories.${i}.id`, idInv);
+			});
+		}
 
-    const handleSave = () => {
-        onSave();
-        handleClose();
-    };
+		if (quantityData.length > 0) {
+			quantityData.forEach((inventory, i) => {
+				console.log(`Setting Quantity for variant ${index}, inventory ${i}:`, inventory?.quantity);
+				formStore.setValue(`variants.${index}.inventories.${i}.quantity`, inventory?.quantity);
+			});
+		}
+	}, [idInventory, quantityData, formStore, index]);
 
+	//////////////////////////////////////////////////////////////////////////////
+	useEffect(() => {
+		if (!quantityData || quantityData.length === 0) return;
 
-    const handleQuantityChange = (i: number, value: string | number, idInv: number) => {
-        const quantity = Number(value) || 0;
-        setQuantityData((prev) => {
-            const updatedData = [...prev];
-            updatedData[i] = { ...updatedData[i], inventory_source_id: idInv.toString(), quantity };
-            return updatedData;
-        });
-    };
+		const total = quantityData.reduce((acc, curr) => acc + (curr?.quantity || 0), 0);
+		setTotalQuantity(total);
+		formStore.setValue(`variants.${index}.quantity`, total);
+	}, [quantityData, index, formStore]);
 
-    console.log('quantityData:', quantityData);
-    useEffect(() => {
+	useEffect(() => {
+		const newSkuValue = `${idVar}_${skuValue}`;
+		formStore.setValue(`variants.${index}.sku`, newSkuValue);
+	}, [index, formStore]);
 
-        if (idInventory.length > 0) {
-            idInventory.forEach((idInv, i) => {
-                console.log(`Setting ID for variant ${index}, inventory ${i}:`, idInv);
-                formStore.setValue(`variants.${index}.inventories.${i}.id`, idInv);
-            });
-        }
+	useEffect(() => {
+		formStore.setValue(`variants.${index}.color`, colorId);
+		formStore.setValue(`variants.${index}.size`, sizeId);
+	}, [colorId, sizeId, index, formStore]);
 
-        if (quantityData.length > 0) {
-            quantityData.forEach((inventory, i) => {
-                console.log(`Setting Quantity for variant ${index}, inventory ${i}:`, inventory?.quantity);
-                formStore.setValue(`variants.${index}.inventories.${i}.quantity`, inventory?.quantity);
-            });
-        }
-    }, [idInventory, quantityData, formStore, index]);
+	useEffect(() => {
+		dispatch(getInventoryTable());
+	}, [dispatch]);
 
-    //////////////////////////////////////////////////////////////////////////////
-    useEffect(() => {
-        if (!quantityData || quantityData.length === 0) return;
+	useEffect(() => {
+		formStore.setValue(
+			`variants.${index}.status`,
+			formStore.watch(`variants.${index}.status`) ? 1 : 0,
+		);
+	}, [formStore.watch(`variants.${index}.status`)]);
 
-        const total = quantityData.reduce((acc, curr) => acc + (curr?.quantity || 0), 0);
-        setTotalQuantity(total);
-        formStore.setValue(`variants.${index}.quantity`, total);
-    }, [quantityData, index, formStore]);
+	return (
+		<GlobalDialog
+			openDialog={openDialog}
+			handleClose={handleClose}
+			style={{
+				width: {
+					lg: '50%',
+					md: '70%',
+					xs: '90%',
+				},
+				height: { md: '600px', xs: '600px' },
+			}}
+		>
+			<p>{skuValue}</p>
+			{/* <p>{idVar}</p> */}
+			{/* <p>{name}</p> */}
+			<TabbedFormField
+				formStore={formStore}
+				label='Name'
+				keys={[
+					{ name: `variants.${index}.en.name`, label: 'En' },
+					{ name: `variants.${index}.ar.name`, label: 'عربي' },
+				]}
+				renderer={(field) => <Input {...field} />}
+			/>
 
-    useEffect(() => {
-        const newSkuValue = `${idVar}_${skuValue}`;
-        formStore.setValue(`variants.${index}.sku`, newSkuValue);
-    }, [index, formStore]);
+			<FormField
+				formStore={formStore}
+				label='Price'
+				name={`variants.${index}.price`}
+				render={(field) => (
+					// <Input {...field} value={updatePrice} type='number' />
+					<Input {...field} value={field.value ?? 0} type='number' />
+				)}
+			/>
 
-    useEffect(() => {
-        formStore.setValue(`variants.${index}.color`, colorId);
-        formStore.setValue(`variants.${index}.size`, sizeId);
-    }, [colorId, sizeId, index, formStore]);
+			<FormField
+				formStore={formStore}
+				label='Discount'
+				name={`variants.${index}.discount`}
+				render={(field) => (
+					// <Input {...field} value={updateDiscount} type='number' />
+					<Input {...field} value={field.value ?? 0} type='number' />
+				)}
+			/>
 
-    useEffect(() => {
-        dispatch(getInventoryTable());
-    }, [dispatch]);
+			<FormField
+				formStore={formStore}
+				label='SKU'
+				name={`variants.${index}.sku`}
+				render={(field) => <Input {...field} value={field.value || Sku} disabled />}
+			/>
 
-    useEffect(() => {
-        formStore.setValue(`variants.${index}.status`, formStore.watch(`variants.${index}.status`) ? 1 : 0);
-    }, [formStore.watch(`variants.${index}.status`)]);
+			<div className='hidden'>
+				<FormField
+					formStore={formStore}
+					label='color'
+					name={`variants.${index}.color`}
+					render={(field) => (
+						<Input
+							{...field}
+							// value={updateColor}
+							value={field.value || colorId}
+							disabled
+						/>
+					)}
+				/>
 
+				<FormField
+					formStore={formStore}
+					label='size'
+					name={`variants.${index}.size`}
+					render={(field) => (
+						<Input
+							{...field}
+							// value={updateSize || sizeId}
+							value={field.value || sizeId}
+							disabled
+						/>
+					)}
+				/>
+			</div>
 
-    return (
-        <GlobalDialog
-            openDialog={openDialog}
-            handleClose={handleClose}
-            style={{
-                width: {
-                    lg: '50%',
-                    md: '70%',
-                    xs: '90%',
-                },
-                height: { md: '600px', xs: '600px' },
-            }}
-        >
-            <p>{skuValue}</p>
-            <p>{idVar}</p>
-            <p>{name}</p>
-            <TabbedFormField
-                formStore={formStore}
-                label='Name'
-                keys={[
-                    { name: `variants.${index}.en.name`, label: 'En' },
-                    { name: `variants.${index}.ar.name`, label: 'عربي' },
-                ]}
-                renderer={(field) => <Input {...field} />}
-            />
+			<FormField
+				formStore={formStore}
+				label='Quantity'
+				name={`variants.${index}.quantity`}
+				render={(field) => (
+					// <Input {...field} value={updateQuantity} disabled />
+					<Input {...field} value={totalQuantity} disabled />
+				)}
+			/>
 
-            <FormField
-                formStore={formStore}
-                label='Price'
-                name={`variants.${index}.price`}
-                render={(field) => (
-                    // <Input {...field} value={updatePrice} type='number' />
-                    <Input {...field} value={field.value ?? 0} type='number' />
-                )}
-            />
+			<div>
+				{inventory?.map((inventor, i) => {
+					if (!inventor.id) return null;
+					const idInv: number = inventor.id;
+					const matchingQuantity = quantityData.find(
+						(item) => item?.inventory_source_id === inventor.id,
+					);
 
-            <FormField
-                formStore={formStore}
-                label='Discount'
-                name={`variants.${index}.discount`}
-                render={(field) => (
-                    // <Input {...field} value={updateDiscount} type='number' />
-                    <Input {...field} value={field.value ?? 0} type='number' />
-                )}
-            />
+					return (
+						<div className='flex items-center justify-between' key={i}>
+							<p className='title'>{inventor.code}</p>
+							<FormField
+								formStore={formStore}
+								name={`variants.${index}.inventories.${i}.quantity`}
+								render={(field) => (
+									<Input
+										{...field}
+										type='number'
+										value={field.value || matchingQuantity?.qty || ''}
+										onChange={(e) => {
+											const newValue = Number(e.target.value);
+											field.onChange(newValue);
+											handleQuantityChange(i, newValue, idInv);
+										}}
+									/>
+								)}
+							/>
 
-            <FormField
-                formStore={formStore}
-                label='SKU'
-                name={`variants.${index}.sku`}
-                render={(field) => (
-                    <Input
-                        {...field}
-                        value={field.value || Sku}
-                        disabled
-                    />
-                )}
-            />
+							<div className='hidden'>
+								<FormField
+									formStore={formStore}
+									name={`variants.${index}.inventories.${i}.id`}
+									render={(field) => (
+										<Input {...field} value={field.value || idInventory} disabled />
+									)}
+								/>
+							</div>
+						</div>
+					);
+				})}
+			</div>
 
-            <div className='hidden'>
-                <FormField
-                    formStore={formStore}
-                    label='color'
-                    name={`variants.${index}.color`}
-                    render={(field) => (
-                        <Input
-                            {...field}
-                            // value={updateColor}
-                            value={field.value || colorId}
-                            disabled
-                        />
-                    )}
-                />
+			<div className='custom-grid-parent'>
+				<div className='grid-right'>
+					<div className='flex-row-global gap-4'>
+						<FormSwitchField<AddProductSchemaSchemaValues>
+							formStore={formStore}
+							name={`variants.${index}.status`}
+							enable
+						/>
+						<p>{t('status')}</p>
+					</div>
+				</div>
+			</div>
 
-                <FormField
-                    formStore={formStore}
-                    label='size'
-                    name={`variants.${index}.size`}
-                    render={(field) => (
-                        <Input
-                            {...field}
-                            // value={updateSize || sizeId}
-                            value={field.value || sizeId}
-                            disabled
-                        />
-                    )}
-                />
-            </div>
-
-
-            <FormField
-                formStore={formStore}
-                label='Quantity'
-                name={`variants.${index}.quantity`}
-                render={(field) => (
-                    // <Input {...field} value={updateQuantity} disabled />
-                    <Input {...field} value={totalQuantity} disabled />
-                )}
-            />
-
-            <div>
-                {inventory?.map((inventor, i) => {
-                    if (!inventor.id) return null;
-                    const idInv: number = inventor.id;
-                    const matchingQuantity = quantityData.find((item) => item?.inventory_source_id === inventor.id);
-
-                    return (
-                        <div className='flex items-center justify-between' key={i}>
-                            <p className='title'>{inventor.code}</p>
-                            <FormField
-                                formStore={formStore}
-                                name={`variants.${index}.inventories.${i}.quantity`}
-                                render={(field) => (
-                                    <Input
-                                        {...field}
-                                        type="number"
-                                        value={field.value || matchingQuantity?.qty || ''}
-                                        onChange={(e) => {
-                                            const newValue = Number(e.target.value);
-                                            field.onChange(newValue);
-                                            handleQuantityChange(i, newValue, idInv);
-                                        }}
-                                    />
-                                )}
-                            />
-
-                            <div className='hidden'>
-                                <FormField
-                                    formStore={formStore}
-                                    name={`variants.${index}.inventories.${i}.id`}
-                                    render={(field) => (
-                                        <Input
-                                            {...field} value={field.value || idInventory} disabled />
-                                    )}
-                                />
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
-
-            <div className='custom-grid-parent'>
-                <div className='grid-right'>
-                    <div className='flex-row-global gap-4'>
-                        <FormSwitchField<AddProductSchemaSchemaValues> formStore={formStore}
-                            name={`variants.${index}.status`}
-
-                            enable />
-                        <p>{t('status')}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className='flex-btn-end'>
-                <Button variant='primary' type="button" onClick={handleSave} >
-                    {t('Save')}
-                </Button>
-            </div>
-        </GlobalDialog >
-    )
-}
+			<div className='flex-btn-end'>
+				<Button variant='primary' type='button' onClick={handleSave}>
+					{t('Save')}
+				</Button>
+			</div>
+		</GlobalDialog>
+	);
+};
 
 export default AdvancedFields;
-
 
 // useEffect(() => {
 //     if (idUrl) {
@@ -1017,8 +993,6 @@ export default AdvancedFields;
 
 /////////////////////////////////////
 
-
-
 //////////////////////////////////////////////
 
 // useEffect(() => {
@@ -1035,7 +1009,6 @@ export default AdvancedFields;
 //     setTotalQuantity(total);
 //     formStore.setValue(`variants.${index}.quantity`, total);
 // }, [quantityData, index, formStore]);
-
 
 // const handleQuantityChange = (i: number, value: string | number, idInv: number) => {
 //     const quantity = Number(value) || 0;

@@ -47,7 +47,6 @@
 // 	);
 // }
 
-
 import { Link } from 'react-router-dom';
 import { Form } from 'src/app/components/ui/form';
 import { Input } from 'src/app/components/ui/input';
@@ -92,7 +91,7 @@ export default function IdentifierForm({
 						</Link>
 					</p>
 				</>
-			</form >
-		</Form >
+			</form>
+		</Form>
 	);
 }
