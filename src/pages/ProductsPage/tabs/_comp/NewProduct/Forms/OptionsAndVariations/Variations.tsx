@@ -720,26 +720,17 @@
 ///////////////////******************************************************************************************** */
 
 import { useEffect, useState } from 'react';
+import { useFieldArray } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from 'src/app/store';
-import { getAllAttributes } from 'src/app/store/slices/Attributes/AttributeAsyncThunks';
 import { FaCirclePlus } from 'react-icons/fa6';
 import { Button } from 'src/app/components/optimized';
-import SelectFormField from 'src/app/components/ui/form/SelectFormField';
-import { useAppSelector } from 'src/app/store';
-import { GlobalDialog } from 'src/app/components/shared';
-import AutoComplete from 'src/app/components/ui/form/AutoComplete';
-import { RemoveIcon } from 'src/app/utils/icons';
-import AdvancedFields from './AdvancedFields';
-import { AddProductSchemaSchemaValues } from '../../Pages/Configurable/utils';
-import { useFieldArray, UseFormReturn } from 'react-hook-form';
-import { getProduct } from 'src/app/store/slices/productsPage/allProducts/allProductsAsyncThunks';
 import { useFormStore } from 'src/app/context/ConfigurableContext ';
-import toast from 'react-hot-toast';
-import { useSearchParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'src/app/store';
+import { getAllAttributes } from 'src/app/store/slices/Attributes/AttributeAsyncThunks';
 import AddNewAtt from './AddNewAtt';
-import VariantRow from './VariantRow';
 import SelectValues from './SelectValues';
+import VariantRow from './VariantRow';
+import { getInventoryTable } from 'src/app/store/slices/productsPage/inventory/inventoryAsyncThunks';
 
 export interface AttributeValue {
 	id: number;
@@ -759,6 +750,8 @@ interface Variation {
 
 export default function ProductFormOptionsAndVariationsSection({ id }: { id?: string }) {
 	const { attributes } = useAppSelector((state) => state.attributes);
+	const { inventory } = useAppSelector((state) => state.inventory);
+
 	const [openDialog, setOpenDialog] = useState(false);
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
@@ -770,8 +763,8 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 		name: 'variants',
 	});
 	const variants = formStore.watch(`variants`);
-
 	const chosen_variants_options = formStore.watch(`chosen_variants_options`);
+	const parent_sky = formStore.watch('sku');
 
 	const addBasicVariant = () => {
 		setOpenDialog(true);
@@ -779,6 +772,7 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 
 	useEffect(() => {
 		dispatch(getAllAttributes());
+		dispatch(getInventoryTable());
 	}, [dispatch]);
 
 	const getCombinations = (groupedOptions: Record<string, AttributeValue[]>): Variation[] => {
@@ -787,10 +781,10 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 		const generateCombinations = (currentCombination: AttributeValue[], depth: number) => {
 			const codes = Object.keys(groupedOptions);
 			if (depth === codes.length) {
-				console.log('currentCombination', currentCombination);
 				const id = currentCombination.map((v) => v.id).join(' / ');
 				const name = currentCombination.map((v) => v.name).join(' / ');
-				result.push({ id, name, codes });
+				const sku = `${parent_sky}_${currentCombination.map((v) => v.name).join('_')}`;
+				result.push({ id, name, sku, codes, attributeValues: currentCombination });
 				return;
 			}
 
@@ -811,7 +805,9 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 	// console.log('variant2222', variant2222);
 
 	///////////////////////////////////////////////////////////
+
 	useEffect(() => {
+		// return;
 		if (!chosen_variants_options || chosen_variants_options?.length < 1) {
 			return replace([]);
 		}
@@ -832,13 +828,8 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 				console.log('item ', item);
 				return {
 					code: item?.name,
-					attributeValues: [
-						{
-							id: 0,
-							name: '',
-						},
-					],
-					sku: item?.name,
+					attributeValues: item?.attributeValues,
+					sku: item?.sku,
 					en: {
 						name: '',
 					},
@@ -849,18 +840,20 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 					discount: 0,
 					status: 1,
 					quantity: 0,
-					inventories: [
-						{
-							id: 0,
+					inventories: inventory?.map((inv) => {
+						return {
+							id: inv.id,
 							quantity: 0,
-						},
-					],
+						};
+					}),
 				};
 			}),
 		);
-	}, [chosen_variants_options]);
+	}, [chosen_variants_options, parent_sky]);
 
 	console.log('variantsvariants ', variants);
+	const cscsc = formStore.watch();
+	// console.log('cscsc  ', cscsc);
 
 	return (
 		<section className='global-cards gap-2' id={id}>

@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import ScrollToTop from './app/components/shared/scroll-top/ScrollToTop';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import ProjectRoutes from './app/AppRoutes/ProjectRoutes';
+import { Toaster as ToastersSonner } from 'sonner';
 
 // App component
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
 			<Toaster />
 			<ScrollToTop />
 			<ProjectRoutes />
+			<ToastersSonner />
 		</QueryClientProvider>
 	);
 };
