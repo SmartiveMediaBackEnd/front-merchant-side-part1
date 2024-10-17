@@ -2,7 +2,10 @@ import { InferredZodSchema } from 'src/app/utils/hooks/form';
 import { z } from 'zod';
 
 const zodBoolean = z.coerce.number().min(0).max(1);
-
+function isAlphanumeric(str: string) {
+	const regex = /^[a-zA-Z0-9]+$/;
+	return regex.test(str);
+}
 const imageValidation = z
 	.array(
 		z
@@ -28,7 +31,13 @@ export const ProductSchema = {
 	// ).nonempty({ message: 'At least one video is required.' }).optional(),
 
 	// BASIC INFO && DISCRETION
-	sku: z.string().min(3).max(30),
+	sku: z
+		.string()
+		.min(3)
+		.max(30)
+		.refine((s) => !s.includes(' '), 'No Spaces!')
+		.refine((s) => isAlphanumeric(s), 'Only letters and numbers are allowed!'),
+
 	en: z.object({
 		name: z.string().min(3).max(50),
 		description: z.string().min(10).max(1000),
@@ -55,7 +64,9 @@ export const ProductSchema = {
 				value_en: z.string().min(5),
 			}),
 		)
-		.optional(),
+		.min(1, {
+			message: 'At least one specification is required.',
+		}),
 	// product_id:z.coerce.number().positive().min(1),
 
 	chosen_variants_options: z
@@ -92,8 +103,13 @@ export const ProductSchema = {
 				inventories: z
 					.array(
 						z.object({
-							id: z.coerce.number().optional(),
-							quantity: z.coerce.number().min(0).optional(),
+							id: z.coerce.number(),
+							quantity: z.coerce
+								.number({})
+								.min(0, {
+									message: 'Quantity must be a positive number.',
+								})
+								.positive(),
 						}),
 					)
 					.min(1),
@@ -151,8 +167,9 @@ export const ProductSchema = {
 				answer_en: z.string().min(5),
 			}),
 		)
-		.optional(),
-
+		.min(1, {
+			message: 'At least one FAQ is required.',
+		}),
 	// ACTIONS
 	status: z.coerce.number().min(0),
 	featured: z.coerce.number().min(0),
@@ -160,33 +177,158 @@ export const ProductSchema = {
 
 export const defaultProductValues = {
 	type: 'configurable',
-	// MEDIA
 	images: [],
 	videos: [],
-
-	// BASIC INFO && DISCRETION
-	sku: '',
+	sku: 'dwdw',
 	en: {
-		name: '',
+		name: 'ewqeqewq',
+		description: 'qeqeqeqweeqwe',
 	},
 	ar: {
-		name: '',
+		name: 'qeqwewqeqwe',
+		description: 'qweqweqweqeq',
 	},
-	categories: '',
-	brand_id: '',
-	specifications: [],
-	// product_id: null,
-	// VARIATIONS
-	variants: [],
-
-	// PRICING
-	price: 0,
-	cost: 0,
-	discount: 0,
-	profit: 0,
+	categories: '112',
+	brand_id: '32',
+	specifications: [
+		{
+			name_ar: 'ewewe',
+			value_ar: 'ewewe',
+			name_en: 'ewew',
+			value_en: 'ewewe',
+		},
+	],
+	variants: [
+		{
+			code: 'Green / M',
+			attributeValues: [
+				{
+					id: 217,
+					name: 'Green',
+				},
+				{
+					id: 222,
+					name: 'M',
+				},
+			],
+			sku: 'dwdw_Green_M',
+			en: {
+				name: 'wer',
+			},
+			ar: {
+				name: 'rwerw',
+			},
+			price: '234',
+			discount: 0,
+			status: 1,
+			quantity: 0,
+			inventories: [
+				{
+					id: 0,
+					quantity: 0,
+				},
+			],
+		},
+		{
+			code: 'Green / L',
+			attributeValues: [
+				{
+					id: 217,
+					name: 'Green',
+				},
+				{
+					id: 223,
+					name: 'L',
+				},
+			],
+			sku: 'dwdw_Green_L',
+			en: {
+				name: 'wrw',
+			},
+			ar: {
+				name: 'wrrw',
+			},
+			price: '43',
+			discount: 0,
+			status: 1,
+			quantity: 0,
+			inventories: [
+				{
+					id: 0,
+					quantity: 0,
+				},
+			],
+		},
+		{
+			code: 'Red / M',
+			attributeValues: [
+				{
+					id: 216,
+					name: 'Red',
+				},
+				{
+					id: 222,
+					name: 'M',
+				},
+			],
+			sku: 'dwdw_Red_M',
+			en: {
+				name: 'rwer',
+			},
+			ar: {
+				name: 'wer',
+			},
+			price: '434',
+			discount: 0,
+			status: 1,
+			quantity: 0,
+			inventories: [
+				{
+					id: 0,
+					quantity: 0,
+				},
+				{},
+				{},
+			],
+		},
+		{
+			code: 'Red / L',
+			attributeValues: [
+				{
+					id: 216,
+					name: 'Red',
+				},
+				{
+					id: 223,
+					name: 'L',
+				},
+			],
+			sku: 'dwdw_Red_L',
+			en: {
+				name: '432',
+			},
+			ar: {
+				name: 'rewr',
+			},
+			price: '34',
+			discount: 0,
+			status: 1,
+			quantity: 0,
+			inventories: [
+				{
+					id: 0,
+					quantity: 0,
+				},
+				{},
+				{},
+			],
+		},
+	],
+	price: '24',
+	cost: '423',
+	discount: '4432',
+	profit: -4831,
 	taxable: 0,
-
-	// SHIPPING
 	is_shipped: 0,
 	weight: 0,
 	weight_unit: '',
@@ -198,22 +340,52 @@ export const defaultProductValues = {
 	shipping_rate_type: 'Free shipping',
 	shipping_rate: 0,
 	shipping_method: 'Dhl (main)',
-
-	// 	stock
 	continue_selling: 0,
-	base_qty: 0,
-	qty: 0,
-
-	// SEO
+	base_qty: '21',
+	qty: '43',
 	meta_keywords: [],
-	page_title: '',
-	meta_description: '',
-	link: '',
-	//faq
-	faqs: [],
-	// ACTION
+	page_title: 'https://artisan.dookan.net/t-shirt',
+	meta_description: 'https://artisan.dookan.net/t-shirt\n',
+	link: 'https://artisan.dookan.net/t-shirt',
+	faqs: [
+		{
+			question_ar: 'eweweewe',
+			answer_ar: 'ewewe',
+			question_en: 'ewewee',
+			answer_en: 'wewewe',
+		},
+	],
 	status: 0,
 	featured: 0,
+	bulkPrices: [],
+	chosen_variants_options: [
+		{
+			code: 'color',
+			attributeValues: [
+				{
+					id: 217,
+					name: 'Green',
+				},
+				{
+					id: 216,
+					name: 'Red',
+				},
+			],
+		},
+		{
+			code: 'size',
+			attributeValues: [
+				{
+					id: 222,
+					name: 'M',
+				},
+				{
+					id: 223,
+					name: 'L',
+				},
+			],
+		},
+	],
 };
 
 export type AddProductSchemaSchemaValues = InferredZodSchema<typeof ProductSchema>;
