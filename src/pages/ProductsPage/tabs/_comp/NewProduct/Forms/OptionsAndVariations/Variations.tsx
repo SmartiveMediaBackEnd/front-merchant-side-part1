@@ -760,37 +760,23 @@ interface Variation {
 export default function ProductFormOptionsAndVariationsSection({ id }: { id?: string }) {
 	const { attributes } = useAppSelector((state) => state.attributes);
 	const [openDialog, setOpenDialog] = useState(false);
-	const [variations, setVariations] = useState<any[]>([]);
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 
 	const { formStore } = useFormStore();
 
-	const variants = formStore.getValues('variants') || [];
-	const [searchParams] = useSearchParams();
-	const urlId = searchParams.get('id');
-
-	const { fields, replace } = useFieldArray({
+	const { remove, replace } = useFieldArray({
 		control: formStore.control,
 		name: 'variants',
 	});
+	const variants = formStore.watch(`variants`);
 
-	const {} = useFieldArray({
-		control: formStore.control,
-		name: 'chosen_variants_options',
-	});
 	const chosen_variants_options = formStore.watch(`chosen_variants_options`);
 
 	const addBasicVariant = () => {
 		setOpenDialog(true);
 	};
-	useEffect(() => {
-		if (urlId) {
-			if (variants.length > 0) {
-				setVariations((prevVariations) => [...prevVariations, ...variants]);
-			}
-		}
-	}, [urlId, variants]);
+
 	useEffect(() => {
 		dispatch(getAllAttributes());
 	}, [dispatch]);
@@ -801,6 +787,7 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 		const generateCombinations = (currentCombination: AttributeValue[], depth: number) => {
 			const codes = Object.keys(groupedOptions);
 			if (depth === codes.length) {
+				console.log('currentCombination', currentCombination);
 				const id = currentCombination.map((v) => v.id).join(' / ');
 				const name = currentCombination.map((v) => v.name).join(' / ');
 				result.push({ id, name, codes });
@@ -825,7 +812,9 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 
 	///////////////////////////////////////////////////////////
 	useEffect(() => {
-		if (!chosen_variants_options || chosen_variants_options?.length < 1) return;
+		if (!chosen_variants_options || chosen_variants_options?.length < 1) {
+			return replace([]);
+		}
 
 		const groupedOptions = chosen_variants_options.reduce((acc, item) => {
 			acc[item.code] = item.attributeValues;
@@ -840,6 +829,7 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 
 		replace(
 			newVariations?.map((item) => {
+				console.log('item ', item);
 				return {
 					code: item?.name,
 					attributeValues: [
@@ -883,7 +873,7 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 			{/* form */}
 			<section>
 				<Button variant='secondary' LeftIcon={FaCirclePlus} type='button' onClick={addBasicVariant}>
-					{fields.length > 0 ? t('add more variant') : t('add variant')}
+					{variants.length > 0 ? t('add more variant') : t('add variant')}
 				</Button>
 				<div className='flex flex-col gap-4'>
 					{chosen_variants_options?.map((option, index) => (
@@ -910,7 +900,13 @@ export default function ProductFormOptionsAndVariationsSection({ id }: { id?: st
 				<ul className='flex flex-col gap-4'>
 					{variants?.length > 0 &&
 						variants?.map((variation, index) => (
-							<VariantRow index={index} key={index} variation={variation} formStore={formStore} />
+							<VariantRow
+								remove={remove}
+								index={index}
+								key={index}
+								variation={variation}
+								formStore={formStore}
+							/>
 						))}
 				</ul>
 			</section>

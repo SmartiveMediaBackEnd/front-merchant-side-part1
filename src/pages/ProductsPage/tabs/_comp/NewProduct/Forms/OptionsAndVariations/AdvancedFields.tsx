@@ -678,7 +678,7 @@ import { useAppDispatch } from 'src/app/store';
 import { AddProductSchemaSchemaValues } from '../../Pages/Configurable/utils';
 import FormField from 'src/app/components/ui/form/field';
 import { useAppSelector } from 'src/app/store';
-import { UseFormReturn } from 'react-hook-form';
+import { useFieldArray, UseFormReturn } from 'react-hook-form';
 import { Input } from 'src/app/components/ui/input';
 import { GlobalDialog } from 'src/app/components/shared';
 import TabbedFormField from 'src/app/components/ui/form/tabbed-field';
@@ -717,13 +717,6 @@ const AdvancedFields = ({
 	const { t } = useTranslation();
 	const dispatch = useAppDispatch();
 	const skuValue = formStore.getValues('sku') || '';
-	const Sku = idVar + '_' + skuValue;
-	const ids =
-		typeof variation?.id === 'string'
-			? variation.id.split('/').map((id: any) => id.trim())
-			: [variation?.id?.toString()];
-	const colorId = ids[0];
-	const sizeId = ids[1];
 
 	//////////////////////////////////////////////
 
@@ -740,7 +733,6 @@ const AdvancedFields = ({
 	// }, [variation, formStore, index]);
 
 	const handleSave = () => {
-		onSave();
 		handleClose();
 	};
 
@@ -771,23 +763,6 @@ const AdvancedFields = ({
 	}, [idInventory, quantityData, formStore, index]);
 
 	//////////////////////////////////////////////////////////////////////////////
-	useEffect(() => {
-		if (!quantityData || quantityData.length === 0) return;
-
-		const total = quantityData.reduce((acc, curr) => acc + (curr?.quantity || 0), 0);
-		setTotalQuantity(total);
-		formStore.setValue(`variants.${index}.quantity`, total);
-	}, [quantityData, index, formStore]);
-
-	useEffect(() => {
-		const newSkuValue = `${idVar}_${skuValue}`;
-		formStore.setValue(`variants.${index}.sku`, newSkuValue);
-	}, [index, formStore]);
-
-	useEffect(() => {
-		formStore.setValue(`variants.${index}.color`, colorId);
-		formStore.setValue(`variants.${index}.size`, sizeId);
-	}, [colorId, sizeId, index, formStore]);
 
 	useEffect(() => {
 		dispatch(getInventoryTable());
@@ -825,14 +800,17 @@ const AdvancedFields = ({
 				]}
 				renderer={(field) => <Input {...field} />}
 			/>
-
 			<FormField
 				formStore={formStore}
 				label='Price'
 				name={`variants.${index}.price`}
 				render={(field) => (
 					// <Input {...field} value={updatePrice} type='number' />
-					<Input {...field} value={field.value ?? 0} type='number' />
+					<Input
+						{...field}
+						value={field.value ?? 0}
+						type='number'
+					/>
 				)}
 			/>
 
@@ -850,7 +828,7 @@ const AdvancedFields = ({
 				formStore={formStore}
 				label='SKU'
 				name={`variants.${index}.sku`}
-				render={(field) => <Input {...field} value={field.value || Sku} disabled />}
+				render={(field) => <Input {...field} value={field.value} disabled />}
 			/>
 
 			<div className='hidden'>
@@ -862,7 +840,7 @@ const AdvancedFields = ({
 						<Input
 							{...field}
 							// value={updateColor}
-							value={field.value || colorId}
+							value={field.value}
 							disabled
 						/>
 					)}
@@ -876,7 +854,7 @@ const AdvancedFields = ({
 						<Input
 							{...field}
 							// value={updateSize || sizeId}
-							value={field.value || sizeId}
+							value={field.value}
 							disabled
 						/>
 					)}

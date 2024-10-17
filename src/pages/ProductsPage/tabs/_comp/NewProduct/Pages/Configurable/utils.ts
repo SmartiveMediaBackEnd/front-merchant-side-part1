@@ -86,10 +86,9 @@ export const ProductSchema = {
 				}),
 				price: z.coerce.number().positive().min(1),
 				discount: z.coerce.number().min(0).optional(),
-				color: z.string().min(1),
-				size: z.string().min(1),
+				color: z.string().optional(),
+				size: z.string().optional(),
 				status: zodBoolean,
-				quantity: z.coerce.number().positive().min(1),
 				inventories: z
 					.array(
 						z.object({

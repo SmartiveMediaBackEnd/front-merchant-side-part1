@@ -90,6 +90,7 @@ const AddNewAtt = ({ openDialog, setOpenDialog, attributes, formStore }: Props) 
 				/>
 				<div className='flex-end'>
 					<Button
+						disabled={value?.length < 1 || !selectedAtt}
 						variant='primary'
 						type='button'
 						onClick={() => {
@@ -106,36 +107,6 @@ const AddNewAtt = ({ openDialog, setOpenDialog, attributes, formStore }: Props) 
 										};
 									}) || [],
 							});
-
-							// handleSaveSelections33({
-							// 	code: selectedAtt,
-							// 	attributeValues:
-							// 		value?.map((e) => {
-							// 			return {
-							// 				id: e?.id,
-							// 				name: e?.label,
-							// 			};
-							// 		}) || [],
-							// 	sku: '',
-							// 	en: {
-							// 		name: '',
-							// 	},
-							// 	ar: {
-							// 		name: '',
-							// 	},
-							// 	price: 0,
-							// 	discount: 0,
-							// 	color: '',
-							// 	size: '',
-							// 	status: 1,
-							// 	quantity: 0,
-							// 	inventories: [
-							// 		{
-							// 			id: 0,
-							// 			quantity: 0,
-							// 		},
-							// 	],
-							// });
 						}}
 					>
 						{t('add')}
